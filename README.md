@@ -54,8 +54,7 @@ It works especially well for logs that contain:
 ## 📥 Input and Output
 
 The script reads:
-
-```text
+text
 log.txt
 and generates:
 
