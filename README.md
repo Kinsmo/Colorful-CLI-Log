@@ -1,4 +1,4 @@
-# render_log.py ✨🖥️📄
+# colorful_cli_log.py ✨🖥️📄
 
 A simple Python tool that reads a plain text terminal log and reconstructs it into a styled HTML page with terminal-like formatting. 🎨
 
