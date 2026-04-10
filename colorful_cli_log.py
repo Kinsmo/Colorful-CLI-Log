@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 # ========= 直接在这里改路径 =========
-INPUT_FILE = r"oo生成Obsidian右键菜单.txt"
+INPUT_FILE = r"log.txt"
 OUTPUT_FILE = r"log_rendered.html"
 TITLE = "Terminal Log Render"
 # ===================================
