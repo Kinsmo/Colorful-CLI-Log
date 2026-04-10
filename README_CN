@@ -1,0 +1,192 @@
+
+---
+
+```md
+# render_log.py ✨🖥️📄
+
+一个简单实用的 Python 工具，用来读取纯文本终端日志，并将其重建为带有终端风格格式的 HTML 页面。🎨
+
+它特别适合处理那些**已经丢失 ANSI 颜色信息**的日志文件，比如从 Windows CMD、PowerShell、Codex CLI 等工具导出的 `.txt` 文件。🧩
+
+这个脚本并不会“精确还原”原始终端颜色，而是根据文本结构和常见模式，重新渲染出更清晰、更好看的 HTML 效果。🌈
+
+---
+
+## 🚀 功能特点
+
+- ✅ 重建 diff 风格的代码行：
+  - 绿色 `+` 行 ➕🟢
+  - 红色 `-` 行 ➖🔴
+  - 行号显示 🔢
+  - 行背景高亮 🎨
+- ✅ 高亮常见操作行，例如：
+  - `• Edited ...` ✏️
+  - `• Ran ...` ▶️
+  - `✔ ...` ✔️
+- ✅ 保留终端树状结构输出，例如：
+  - `│`
+  - `└`
+  - `├` 🌲
+- ✅ 高亮常见错误和成功信息 ⚠️✅
+- ✅ 输出独立 HTML 文件 🌐
+- ✅ 无需任何第三方依赖 📦
+
+---
+
+## 🤔 这个工具解决什么问题
+
+当终端输出被导出成纯文本后，很多重要的视觉信息会丢失：
+
+- ANSI 颜色 🎨
+- diff 的红绿高亮 ➕➖
+- 终端层级结构 🌲
+- 操作标记 🛠️
+- 可读性 👀
+
+这个脚本会根据文本本身的结构，**启发式重建**这些视觉层，让日志重新变得清晰、易读。🧠
+
+它尤其适合处理以下类型的日志：
+
+- 代码 diff 输出 💻
+- Codex CLI 输出 🤖
+- PowerShell 输出 ⚡
+- Windows CMD 日志 🪟
+- 有结构的终端操作记录 📜
+
+---
+
+## 📥 输入与输出
+
+脚本读取：
+
+```text
+log.txt
+
+生成：
+
+log_rendered.html
+
+生成后的 HTML 可以直接用浏览器打开。🌍
+
+⚡ 使用方法
+
+将脚本保存为：
+
+render_log.py
+
+把日志文件放在同目录下：
+
+log.txt
+
+然后运行：
+
+python render_log.py
+
+运行完成后，会生成：
+
+log_rendered.html
+
+直接在浏览器中打开，就能看到更像终端界面的可视化日志效果。✨
+
+⚙️ 配置方式
+
+所有路径都直接写在脚本内部配置。
+
+例如：
+
+INPUT_FILE = r"log.txt"
+OUTPUT_FILE = r"log_rendered.html"
+TITLE = "Terminal Log Render"
+
+这个项目刻意不使用命令行参数。🎯
+
+🔍 支持识别的日志模式
+
+当前渲染器会识别并高亮以下常见模式：
+
+Diff 风格代码行 ➕➖
+56 +                }
+57 +            }
+8 -@="xxx"
+文件编辑摘要 ✏️
+• Edited open-in-obsidian-context-menu.reg (+1 -1)
+命令执行行 ▶️
+• Ran reg import open-in-obsidian-context-menu.reg
+状态行 ✅❌
+✔ You approved codex to run ...
+✖ Something failed
+树状终端输出 🌲
+└ The operation completed successfully.
+│ Additional output...
+错误信息行 ⚠️
+
+包含以下关键词的行会被识别为错误相关输出并高亮：
+
+error
+exception
+FullyQualifiedErrorId
+⚠️ 局限性
+
+这个脚本处理的是纯文本日志。📄
+
+因此它无法真正恢复以下信息：
+
+原始 ANSI 转义序列
+精确的终端主题颜色
+原始语法高亮
+某些工具自带的特殊渲染效果
+
+它所做的是：
+
+根据文本结构进行视觉重建，而不是从原始颜色信息中做精确恢复。 🎭
+
+所以最终效果更准确地说是：
+
+“高质量重建”，不是 “完全还原”。 🧠
+
+🪟 适用场景
+
+这个工具特别适合你在以下场景使用：
+
+从 Windows CMD 或 PowerShell 导出日志 🪟
+把 Codex CLI 输出保存成 .txt 🤖
+想更优雅地归档终端会话 🗂️
+想把 diff 或日志分享给别人看 🤝
+想快速建立一个轻量级的日志转 HTML 流程 ⚡
+📦 依赖情况
+
+无第三方依赖。🎉
+
+脚本只使用 Python 标准库：
+
+html
+os
+re
+pathlib
+
+不需要执行 pip install。✅
+
+🧪 示例流程
+将终端输出保存到 log.txt 📝
+运行：
+python render_log.py
+打开：
+log_rendered.html
+在浏览器中查看更美观、更清晰的终端日志页面 🌈
+💡 补充说明
+
+这个渲染器尤其擅长处理包含以下内容的日志：
+
+diff 片段
+命令执行痕迹
+终端树状输出
+PowerShell 报错块
+Codex CLI 风格记录
+
+如果你的原始日志本身保留了 ANSI 颜色码，那么使用专门的 ANSI 转 HTML 工具，通常会得到更接近原始终端的效果。🎨
+
+而这个脚本的主要目标，是处理那些颜色已经丢失，只剩纯文本的日志。🧩
+
+📄 License
+
+MIT 📘
